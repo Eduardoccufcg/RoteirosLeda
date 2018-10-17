@@ -6,6 +6,7 @@ public class StackImpl<T> implements Stack<T> {
 
 	private T[] array;
 	private int top;
+	private int tail;
 	
 	@SuppressWarnings("unchecked")
 	public StackImpl(int size) {

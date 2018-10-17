@@ -4,6 +4,7 @@ public class QueueImpl<T> implements Queue<T> {
 
 	private T[] array;
 	private int tail;
+	
 
 	@SuppressWarnings("unchecked")
 	public QueueImpl(int size) {
