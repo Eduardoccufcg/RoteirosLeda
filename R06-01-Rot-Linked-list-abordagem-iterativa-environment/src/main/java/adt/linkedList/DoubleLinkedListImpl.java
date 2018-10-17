@@ -1,5 +1,9 @@
 package adt.linkedList;
 
+import java.util.Arrays;
+
+
+
 public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements DoubleLinkedList<T> {
 
 	protected DoubleLinkedListNode<T> last;
@@ -8,6 +12,38 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 
 		head = new DoubleLinkedListNode<T>();
 		last = (DoubleLinkedListNode<T>) head;
+
+	}
+
+	public static void main(String[] args) {
+		DoubleLinkedListImpl<Integer> fila = new DoubleLinkedListImpl<Integer>();
+		fila.insert(20);
+		fila.insert(42);
+		fila.insert(44);
+		fila.insert(2);
+
+		System.out.println(Arrays.toString(fila.toArray()));
+		fila.reverse();
+		System.out.println(Arrays.toString(fila.toArray()));
+
+	}
+
+	@Override
+	public void reverse() {
+		
+		DoubleLinkedListNode<T> left = (DoubleLinkedListNode<T>) this.head;
+		DoubleLinkedListNode<T> right = this.last;
+		int i = 0;
+		int j = this.size() - 1; // (-)(n)
+		while (i < j) {
+			T aux = left.getData();
+			left.setData(right.getData());
+			right.setData(aux);
+			i++;
+			j--;
+			left = (DoubleLinkedListNode<T>) left.getNext();
+			right = right.getPrevious();
+		}
 
 	}
 

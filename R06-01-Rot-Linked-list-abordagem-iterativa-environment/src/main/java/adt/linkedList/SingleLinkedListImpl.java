@@ -13,12 +13,50 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public static void main(String[] args) {
 		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
 		lista.insert(10);
-		lista.insert(8888);
 		lista.insert(4);
-		lista.insert(1);
+		lista.insert(4);
+		lista.insert(9);
 
 		System.out.println(Arrays.toString(lista.toArray()));
-		System.out.println(lista.elementFromTheEnd(5));
+		System.out.println(lista.indexOf(74));
+
+		System.out.println(lista.lastIndexOf(41));
+	}
+
+	public int indexOf(T elem) {
+		int indexOf = -1;
+		if (!isEmpty()) {
+			SingleLinkedListNode<T> aux = this.head;
+			while (!aux.isNIL() && !aux.getData().equals(elem)) {
+				aux = aux.getNext();
+				indexOf++;
+			}
+			if(aux.isNIL()) {
+				indexOf = -1;
+			}else {
+				indexOf++;
+			}
+
+		}
+		return indexOf;
+
+	}
+
+	public int lastIndexOf(T elem) {
+		int index = -1;
+		int lastIndexOf = -1;
+		if(!isEmpty()) {
+			SingleLinkedListNode<T> aux = this.head;
+			while (!aux.isNIL()) {
+				index++;
+				if(aux.getData().equals(elem)) {
+					lastIndexOf = index;
+				}
+				aux = aux.getNext();
+			}
+			
+		}
+		return lastIndexOf;
 
 	}
 
@@ -66,7 +104,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 		}
 		// k > que o tamanho do array.
-		if(k > j) {
+		if (k > j) {
 			return null;
 		}
 		return kth.getData();
@@ -82,7 +120,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
-	public void inverter() {
+	public void reverse() {
 		// procuro o ultimo elemento da lista.
 		SingleLinkedListNode<T> aux = this.head;
 		SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>();

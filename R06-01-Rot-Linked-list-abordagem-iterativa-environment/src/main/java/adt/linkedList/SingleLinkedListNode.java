@@ -1,6 +1,6 @@
 package adt.linkedList;
 
-public class SingleLinkedListNode<T> {
+public class SingleLinkedListNode<T> implements Comparable<T> {
 	protected T data;
 	protected SingleLinkedListNode<T> next;
 
@@ -59,6 +59,18 @@ public class SingleLinkedListNode<T> {
 
 	public void setNext(SingleLinkedListNode<T> next) {
 		this.next = next;
+	}
+
+	@Override
+	public int compareTo(T o) {
+		
+		if((Integer) o < (Integer) this.getData()) {
+			return 1;
+		}else if ((Integer) o > (Integer) this.getData()) {
+			return -1;
+		}else {
+			return 0;
+		}
 	}
 
 }
