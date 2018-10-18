@@ -12,15 +12,35 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	public static void main(String[] args) {
 		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
-		lista.insert(10);
-		lista.insert(4);
-		lista.insert(4);
-		lista.insert(9);
+		lista.insert(2);
+		lista.insert(8);
+		lista.insert(3);
+		lista.insert(0);
 
 		System.out.println(Arrays.toString(lista.toArray()));
-		System.out.println(lista.indexOf(74));
+		lista.removeIndex(1);
+		System.out.println(Arrays.toString(lista.toArray()));
+	}
 
-		System.out.println(lista.lastIndexOf(41));
+	// assumindo que serao passados indices válidos.
+	public void removeIndex(int indice) {
+		SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>(); // o elemento antes do que eu quero remover
+		if (indice == 0) {
+			this.head = head.getNext();
+
+		} else {
+			int i = 1;
+			SingleLinkedListNode<T> aux = this.head;
+			while (i <= indice) {
+				previous = aux;
+				aux = aux.getNext();
+				i++;
+			}
+
+			previous.setNext(aux.getNext());
+
+		}
+
 	}
 
 	public int indexOf(T elem) {
@@ -31,9 +51,9 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				aux = aux.getNext();
 				indexOf++;
 			}
-			if(aux.isNIL()) {
+			if (aux.isNIL()) {
 				indexOf = -1;
-			}else {
+			} else {
 				indexOf++;
 			}
 
@@ -45,16 +65,16 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public int lastIndexOf(T elem) {
 		int index = -1;
 		int lastIndexOf = -1;
-		if(!isEmpty()) {
+		if (!isEmpty()) {
 			SingleLinkedListNode<T> aux = this.head;
 			while (!aux.isNIL()) {
 				index++;
-				if(aux.getData().equals(elem)) {
+				if (aux.getData().equals(elem)) {
 					lastIndexOf = index;
 				}
 				aux = aux.getNext();
 			}
-			
+
 		}
 		return lastIndexOf;
 
@@ -123,9 +143,9 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public void reverse() {
 		// procuro o ultimo elemento da lista.
 		SingleLinkedListNode<T> aux = this.head;
-		SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>();
+		SingleLinkedListNode<T> last = new SingleLinkedListNode<T>();
 		while (!aux.isNIL()) {
-			previous = aux;
+			last = aux;
 			aux = aux.next;
 		}
 
@@ -133,7 +153,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		reverseElem(this.head, new SingleLinkedListNode<T>());
 		// O head agora é p ultimoelemento da lista, ou seja o primeiro da lista
 		// invertida.
-		this.head = previous;
+		this.head = last;
 
 	}
 
@@ -254,7 +274,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public void remove(T element) {
 		SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>();
 		// se o elemento do head ja for o elemento,o elemento next vira o head.
-		if (this.head.getData().equals(element)) {
+		if (element.equals(this.head.getData())) {
 			this.head = head.getNext();
 		} else {
 			SingleLinkedListNode<T> aux = this.head;

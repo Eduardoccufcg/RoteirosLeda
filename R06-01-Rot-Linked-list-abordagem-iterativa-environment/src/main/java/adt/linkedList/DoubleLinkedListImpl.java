@@ -17,13 +17,10 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 
 	public static void main(String[] args) {
 		DoubleLinkedListImpl<Integer> fila = new DoubleLinkedListImpl<Integer>();
-		fila.insert(20);
-		fila.insert(42);
-		fila.insert(44);
-		fila.insert(2);
+		
 
 		System.out.println(Arrays.toString(fila.toArray()));
-		fila.reverse();
+		fila.remove(2);
 		System.out.println(Arrays.toString(fila.toArray()));
 
 	}
@@ -136,5 +133,32 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 		return result;
 
 	}
+	
+	
+	@Override
+	public void remove(T element) {
+		if (element.equals(this.head.getData())) {
+			this.removeFirst();
+		} else {
+			DoubleLinkedListNode<T> auxHead = (DoubleLinkedListNode<T>) this.head;
+			while(!auxHead.isNIL() && !auxHead.getData().equals(element)) {
+				auxHead = (DoubleLinkedListNode<T>) auxHead.getNext();
+			}
+			if (!auxHead.isNIL()) {
+				auxHead.getPrevious().setNext(auxHead.getNext());
+				((DoubleLinkedListNode<T>) auxHead.getNext()).setPrevious(auxHead.getPrevious());
+			}
+		}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
