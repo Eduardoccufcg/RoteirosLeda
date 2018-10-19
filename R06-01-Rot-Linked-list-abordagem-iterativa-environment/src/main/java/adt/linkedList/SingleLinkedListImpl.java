@@ -18,7 +18,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		lista.insert(0);
 
 		System.out.println(Arrays.toString(lista.toArray()));
-		lista.removeIndex(1);
+		lista.reverseOther();
 		System.out.println(Arrays.toString(lista.toArray()));
 	}
 
@@ -154,6 +154,24 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		// O head agora é p ultimoelemento da lista, ou seja o primeiro da lista
 		// invertida.
 		this.head = last;
+
+	}
+
+	// inverter a lista em uma nova abordagem, sem alterar os apontadores apenas
+	// removendo os elementos e adicionando.
+	public void reverseOther() {
+		reversePasso(this.head);
+
+	}
+
+	private void reversePasso(SingleLinkedListNode<T> node) {
+		if (!node.next.isNIL()) {
+			T data = node.getData();
+			removeFirst();
+			reversePasso(this.head);
+			insert(data);
+
+		}
 
 	}
 
