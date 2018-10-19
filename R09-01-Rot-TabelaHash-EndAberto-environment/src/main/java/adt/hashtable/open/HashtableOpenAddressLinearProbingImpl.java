@@ -56,7 +56,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 		int i = 0;
 		T elem = null;
 		while (i < this.table.length) {
-			int index = ((HashFunctionOpenAddress<T>) this.hashFunction).hash(element, i);
+			int index = ((HashFunctionLinearProbing<T>) this.hashFunction).hash(element, i);
 			if (this.table[index] == null) {
 				break;
 			} else if (element.equals(this.table[index])) {
@@ -73,7 +73,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends A
 		int i = 0;
 		int IndexOf = -1;
 		while (i < this.table.length) {
-			int index = ((HashFunctionOpenAddress<T>) this.hashFunction).hash(element, i);
+			int index = ((HashFunctionLinearProbing<T>) this.hashFunction).hash(element, i);
 			if (this.table[index] == null) {
 				break;
 			} else if (element.equals(this.table[index])) {
