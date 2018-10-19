@@ -18,26 +18,30 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		lista.insert(0);
 
 		System.out.println(Arrays.toString(lista.toArray()));
-		lista.reverseOther();
-		System.out.println(Arrays.toString(lista.toArray()));
+		
 	}
 
-	// assumindo que serao passados indices válidos.
+	// indices negativos nao alteram e maiores que o tamanho
 	public void removeIndex(int indice) {
-		SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>(); // o elemento antes do que eu quero remover
-		if (indice == 0) {
-			this.head = head.getNext();
+		if (indice < this.size()) {
 
-		} else {
-			int i = 1;
-			SingleLinkedListNode<T> aux = this.head;
-			while (i <= indice) {
-				previous = aux;
-				aux = aux.getNext();
-				i++;
+			SingleLinkedListNode<T> previous = new SingleLinkedListNode<T>(); // o elemento antes do que eu quero
+																				// remover
+			if (indice == 0) {
+				this.head = head.getNext();
+
+			} else {
+				int i = 1;
+				SingleLinkedListNode<T> aux = this.head;
+				while (i <= indice) {
+					previous = aux;
+					aux = aux.getNext();
+					i++;
+				}
+
+				previous.setNext(aux.getNext());
+
 			}
-
-			previous.setNext(aux.getNext());
 
 		}
 
@@ -106,6 +110,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	}
 
 	public T elementFromTheEnd(int k) {
+		T retorno = null;
 
 		SingleLinkedListNode<T> aux = this.head;
 		int j = 0;
@@ -124,10 +129,10 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 		}
 		// k > que o tamanho do array.
-		if (k > j) {
-			return null;
+		if (k <= j) {
+			retorno = kth.getData();
 		}
-		return kth.getData();
+		return retorno;
 
 	}
 
