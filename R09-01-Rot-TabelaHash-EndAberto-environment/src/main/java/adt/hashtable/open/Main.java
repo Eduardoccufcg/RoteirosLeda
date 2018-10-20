@@ -9,9 +9,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Integer[] a = {1,4,2,3,7,9};
-		int soma = 79;
-		System.out.println(findPlus(a,soma));
+		Integer[] a = {2,7};
+		
+		System.out.println(duplicated(a));
 
 		
 
@@ -51,6 +51,28 @@ public class Main {
 		}
 		return "Nao existe";
 	}
+	private static int duplicated(Integer[] array) {
+		HashMap<Integer,Contador> mapa = new HashMap<Integer,Contador>();
+		for(int i = 0; i < array.length;i++) {
+			if(mapa.get(array[i]) == null) {
+				mapa.put(array[i], new Contador());
+			}else {
+				((Contador) mapa.get(array[i])).setCount();
+			
+				
+			}
+		}
+		for(Integer a : mapa.keySet()) {
+			if(mapa.get(a).getCount() >= array.length / 2.0) {
+				return a;
+			}
+			
+		}
+		throw new RuntimeException("Não ha esse elemento");
+		
+		
+	}
+	
 	
 
 }
