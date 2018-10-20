@@ -136,7 +136,7 @@ public class HashtableOpenAddressQuadraticProbingImpl<T extends Storable> extend
 				insert((T) aux[i]);
 			}
 			
-			System.out.println(Arrays.toString(this.table));	
+			
 
 		}
 
