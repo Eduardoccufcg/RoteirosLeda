@@ -15,11 +15,71 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 
 	public static void main(String[] args) {
 		DoubleLinkedListImpl<Integer> fila = new DoubleLinkedListImpl<Integer>();
-
+		fila.insertOrdenado(15);
 		System.out.println(Arrays.toString(fila.toArray()));
-		
-		System.out.println((fila.elementFromTheEnd(2)));
+		fila.insertOrdenado(20);
+		System.out.println(Arrays.toString(fila.toArray()));
 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public void insertOrdenado(T element) {
+		if(element != null) {
+			// crio o no vazio
+			DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>();
+			// coloco o elemento
+			newNode.setData(element);
+			if(isEmpty() || (newNode).compareTo(head.getData()) > 0) {
+				
+				newNode.setNext(head);
+				// o previous desse novo elemento e NIL
+				newNode.setPrevious(new DoubleLinkedListNode<T>());
+				//O previous do head atual e esse novo elemento
+				((DoubleLinkedListNode<T>) head).setPrevious(newNode);
+				
+				if (head.isNIL()) {
+					// head e last no mesmo lugar
+					setLast(newNode);
+				}
+				// o novo elemento sera o head
+				setHead(newNode);
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 	@Override
@@ -45,14 +105,22 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 	public void insertFirst(T element) {
 		DoubleLinkedListNode<T> newHead;
 
+		// crio o no vazio
 		newHead = new DoubleLinkedListNode<T>();
+		// coloco o elemento
 		newHead.setData(element);
+		// o next desse novo elemento e o head atual
 		newHead.setNext(head);
+		// o previous desse novo elemento e NIL
 		newHead.setPrevious(new DoubleLinkedListNode<T>());
+		//O previous do head atual e esse novo elemento
 		((DoubleLinkedListNode<T>) head).setPrevious(newHead);
+		
 		if (head.isNIL()) {
+			// head e last no mesmo lugar
 			setLast(newHead);
 		}
+		// o novo elemento sera o head
 		setHead(newHead);
 
 	}
