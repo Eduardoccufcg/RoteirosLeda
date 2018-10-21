@@ -13,16 +13,58 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	public static void main(String[] args) {
 		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
 		lista.insert(2);
-		lista.insert(8);
-		lista.insert(3);
 		lista.insert(0);
-		lista.removeIndex(0);
+		lista.insert(15);
 
-		System.out.println(Arrays.toString(lista.toArray()));
-		
+		System.out.println((lista.menor()));
+
 	}
 
-	// indices negativos nao alteram e maiores que o tamanho
+	/*
+	 * Retorna nulo caso a lista esteja vazia
+	 */
+	public T maior() {
+		T maior = null;
+
+		SingleLinkedListNode<T> aux = this.head;
+		if (!aux.isNIL()) {
+			maior = aux.getData();
+			aux = aux.getNext();
+			while (!aux.isNIL()) {
+				if (aux.compareTo(maior) > 0) {
+					maior = aux.getData();
+
+				}
+				aux = aux.getNext();
+			}
+
+		}
+		return maior;
+	}
+
+	/*
+	 * Retorna nulo caso a lista esteja vazia
+	 */
+	public T menor() {
+		T menor = null;
+
+		SingleLinkedListNode<T> aux = this.head;
+		if (!aux.isNIL()) {
+			menor = aux.getData();
+			aux = aux.getNext();
+			while (!aux.isNIL()) {
+				if (aux.compareTo(menor) < 0) {
+					menor = aux.getData();
+
+				}
+				aux = aux.getNext();
+			}
+
+		}
+		return menor;
+	}
+
+	// indices negativos e maiores que o tamanho nao ha alteracoes
 	public void removeIndex(int indice) {
 		if (indice < this.size()) {
 
@@ -279,7 +321,8 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				// o head aponta agora para o elemento inserido
 				head = newHead;
 			} else {
-				// procuro o elemento em que seu proximo e NIL ou menor ou maior que elemento dependendo da implementacao.
+				// procuro o elemento em que seu proximo e NIL ou menor ou maior que elemento
+				// dependendo da implementacao.
 
 				while (!auxHead.next.isNIL() && !((newNode).compareTo(auxHead.next.getData()) > 0)) {
 					auxHead = auxHead.next;
@@ -314,6 +357,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public T[] toArray() {
+		@SuppressWarnings("unchecked")
 		T[] array = (T[]) new Object[this.size()];
 		int count = 0;
 		SingleLinkedListNode<T> aux = this.head;

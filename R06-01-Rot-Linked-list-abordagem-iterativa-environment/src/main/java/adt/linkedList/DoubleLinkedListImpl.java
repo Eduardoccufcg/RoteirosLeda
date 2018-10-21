@@ -93,15 +93,9 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 	public void insertFirst(T element) {
 		DoubleLinkedListNode<T> newHead;
 
-		// crio o no vazio
-		newHead = new DoubleLinkedListNode<T>();
-		// coloco o elemento
-		newHead.setData(element);
-		// o next desse novo elemento e o head atual
-		newHead.setNext(head);
-		// o previous desse novo elemento e NIL
-		newHead.setPrevious(new DoubleLinkedListNode<T>());
-		// O previous do head atual e esse novo elemento
+		// crio o novo no
+		newHead = new DoubleLinkedListNode<T>(element,(DoubleLinkedListNode<T>) head,new DoubleLinkedListNode<T>());
+		
 		((DoubleLinkedListNode<T>) head).setPrevious(newHead);
 
 		if (head.isNIL()) {
@@ -190,12 +184,13 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 	@Override
 	public void remove(T element) {
 		if (element.equals(this.head.getData())) {
-			this.removeFirst();
+			this.removeFirst(); // se o item estiver na cabeca
 		} else {
 			DoubleLinkedListNode<T> auxHead = (DoubleLinkedListNode<T>) this.head;
 			while (!auxHead.isNIL() && !auxHead.getData().equals(element)) {
 				auxHead = (DoubleLinkedListNode<T>) auxHead.getNext();
 			}
+			// se eu encontrei o elemento
 			if (!auxHead.isNIL()) {
 				auxHead.getPrevious().setNext(auxHead.getNext());
 				((DoubleLinkedListNode<T>) auxHead.getNext()).setPrevious(auxHead.getPrevious());
