@@ -279,7 +279,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				// o head aponta agora para o elemento inserido
 				head = newHead;
 			} else {
-				// procuro o elemento em que seu proximo e NIL.
+				// procuro o elemento em que seu proximo e NIL ou menor ou maior que elemento dependendo da implementacao.
 
 				while (!auxHead.next.isNIL() && !((newNode).compareTo(auxHead.next.getData()) > 0)) {
 					auxHead = auxHead.next;

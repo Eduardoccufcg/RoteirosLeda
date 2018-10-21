@@ -16,70 +16,58 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 	public static void main(String[] args) {
 		DoubleLinkedListImpl<Integer> fila = new DoubleLinkedListImpl<Integer>();
 		fila.insertOrdenado(15);
-		System.out.println(Arrays.toString(fila.toArray()));
+
 		fila.insertOrdenado(20);
+		fila.insertOrdenado(17);
+		fila.insertOrdenado(21);
+		fila.insertOrdenado(18);
+		fila.insertOrdenado(14);
+		System.out.println(Arrays.toString(fila.toArray()));
+		fila.reverse();
 		System.out.println(Arrays.toString(fila.toArray()));
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	@Override
 	public void insertOrdenado(T element) {
-		if(element != null) {
+		if (element != null) {
+			// pego a referencia do head
+			DoubleLinkedListNode<T> auxHead = (DoubleLinkedListNode<T>) this.head;
 			// crio o no vazio
 			DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>();
 			// coloco o elemento
 			newNode.setData(element);
-			if(isEmpty() || (newNode).compareTo(head.getData()) > 0) {
-				
-				newNode.setNext(head);
+			if (isEmpty() || (newNode).compareTo(auxHead.getData()) > 0) {
+
+				newNode.setNext(auxHead);
 				// o previous desse novo elemento e NIL
 				newNode.setPrevious(new DoubleLinkedListNode<T>());
-				//O previous do head atual e esse novo elemento
-				((DoubleLinkedListNode<T>) head).setPrevious(newNode);
-				
-				if (head.isNIL()) {
+				// O previous do head atual e esse novo elemento
+				((DoubleLinkedListNode<T>) auxHead).setPrevious(newNode);
+
+				if (auxHead.isNIL()) {
 					// head e last no mesmo lugar
 					setLast(newNode);
 				}
 				// o novo elemento sera o head
 				setHead(newNode);
-				
-				
+
+			} else {
+				while (!auxHead.next.isNIL() && !((newNode).compareTo(auxHead.next.getData()) > 0)) {
+					auxHead = (DoubleLinkedListNode<T>) auxHead.next;
+				}
+				if (auxHead.next.isNIL()) {
+					last = newNode;
+				}
+				newNode.setNext(auxHead.getNext());
+				newNode.setPrevious(auxHead);
+				((DoubleLinkedListNode<T>) auxHead.getNext()).setPrevious(newNode);
+				auxHead.setNext(newNode);
+
 			}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	@Override
@@ -113,9 +101,9 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 		newHead.setNext(head);
 		// o previous desse novo elemento e NIL
 		newHead.setPrevious(new DoubleLinkedListNode<T>());
-		//O previous do head atual e esse novo elemento
+		// O previous do head atual e esse novo elemento
 		((DoubleLinkedListNode<T>) head).setPrevious(newHead);
-		
+
 		if (head.isNIL()) {
 			// head e last no mesmo lugar
 			setLast(newHead);
