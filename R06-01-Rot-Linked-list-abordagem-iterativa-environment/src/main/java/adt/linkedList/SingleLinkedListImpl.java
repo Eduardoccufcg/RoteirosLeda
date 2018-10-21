@@ -20,7 +20,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
-	/*  
+	/*     
 	 * Retorna nulo caso a lista esteja vazia
 	 */
 	public T maior() {
