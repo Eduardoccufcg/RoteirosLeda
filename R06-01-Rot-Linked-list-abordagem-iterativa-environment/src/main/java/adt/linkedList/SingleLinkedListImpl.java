@@ -14,13 +14,13 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
 		lista.insert(2);
 		lista.insert(0);
-		lista.insert(15);
+
 
 		System.out.println((lista.menor()));
 
 	}
 
-	/*
+	/*  
 	 * Retorna nulo caso a lista esteja vazia
 	 */
 	public T maior() {
