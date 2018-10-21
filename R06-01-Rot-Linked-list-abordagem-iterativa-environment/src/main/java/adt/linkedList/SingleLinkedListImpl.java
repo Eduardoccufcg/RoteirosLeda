@@ -16,6 +16,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		lista.insert(8);
 		lista.insert(3);
 		lista.insert(0);
+		lista.removeIndex(0);
 
 		System.out.println(Arrays.toString(lista.toArray()));
 		
@@ -31,12 +32,11 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				this.head = head.getNext();
 
 			} else {
-				int i = 1;
 				SingleLinkedListNode<T> aux = this.head;
-				while (i <= indice) {
+				while (indice >= 1) {
 					previous = aux;
 					aux = aux.getNext();
-					i++;
+					indice--;
 				}
 
 				previous.setNext(aux.getNext());
