@@ -15,9 +15,6 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		lista.insert(2);
 		lista.insert(0);
 
-
-		System.out.println((lista.menor()));
-
 	}
 
 	/*     
