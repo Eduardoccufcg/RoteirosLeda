@@ -22,7 +22,6 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	 */
 	public T maior() {
 		T maior = null;
-
 		SingleLinkedListNode<T> aux = this.head;
 		if (!aux.isNIL()) {
 			maior = aux.getData();
