@@ -21,7 +21,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 		System.out.println(Arrays.toString(lista.toArray()));
 		lista.swap(10, 1);
 
-		System.out.println(Arrays.toString(lista.toArray()));
+		System.out.println((lista.maior()));
 
 	}
 
@@ -48,10 +48,9 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 
 	@Override
 	public boolean isEmpty() {
-	
+
 		return (data == null);
-			
-		
+
 	}
 
 	@Override
@@ -68,9 +67,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 	@Override
 	public T search(T element) {
 		T saida = null;
-		if (isEmpty()) {
-
-		} else {
+		if (!isEmpty()) {
 			if (this.getData().equals(element)) {
 				saida = this.getData();
 			} else {
@@ -140,14 +137,12 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 		this.next = next;
 	}
 
-	public RecursiveSingleLinkedListImpl<T> maior() {
-		RecursiveSingleLinkedListImpl<T> maior = this;
+	public T maior() {
+		T maior = this.getData();
 
 		if (this.next != null && !this.next.isEmpty()) {
-			maior = this;
-			RecursiveSingleLinkedListImpl<T> outroMaior = next.maior();
-			System.out.println(maior.getData());
-			System.out.println(outroMaior.getData());
+			maior = this.getData();
+			T outroMaior = next.maior();
 			maior = max(maior, outroMaior);
 
 		}
@@ -155,11 +150,10 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 
 	}
 
-	private RecursiveSingleLinkedListImpl<T> max(RecursiveSingleLinkedListImpl<T> maior,
-			RecursiveSingleLinkedListImpl<T> outroMaior) {
-		if (maior.compareTo(outroMaior) > 0) {
+	private T max(T maior, T outroMaior) {
+		if ((Integer)maior > (Integer)outroMaior) {
 			return maior;
-		} else if (outroMaior.compareTo(maior) > 0) {
+		} else if ((Integer)outroMaior > (Integer)maior) {
 			return outroMaior;
 		} else {
 			return maior;
@@ -180,4 +174,3 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 	}
 
 }
-
