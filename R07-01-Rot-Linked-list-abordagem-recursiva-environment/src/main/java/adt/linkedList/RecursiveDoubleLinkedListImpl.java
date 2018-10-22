@@ -26,12 +26,11 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 
 			} else {
 
-				RecursiveDoubleLinkedListImpl<T> segundo = new RecursiveDoubleLinkedListImpl<T>();
+				// o que era o head passa a ser o segundo
+				RecursiveDoubleLinkedListImpl<T> segundo = new RecursiveDoubleLinkedListImpl<T>(this.data,this.next,this);
 
 				((RecursiveDoubleLinkedListImpl<T>) this.next).setPrevious(segundo);
-				segundo.data = this.data;
-				segundo.next = this.next;
-				segundo.previous = this;
+				// coloco os dados agora no novo head e ele aponta para o segundo
 				this.data = element;
 				this.next = segundo;
 

@@ -17,9 +17,9 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 		lista.insert(8888);
 		lista.insert(4);
 		lista.insert(1);
-
+		lista.reverse();
 		System.out.println(Arrays.toString(lista.toArray()));
-		lista.swap(10, 1);
+		
 
 		System.out.println((lista.maior()));
 
@@ -30,9 +30,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 	}
 
 	public void reverse() {
-		if (this.isEmpty()) {
-
-		} else {
+		if (!this.isEmpty()) {
 			T data = this.data;
 			this.remove(data);
 			this.reverse();
@@ -151,9 +149,9 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T>, Comparab
 	}
 
 	private T max(T maior, T outroMaior) {
-		if ((Integer)maior > (Integer)outroMaior) {
+		if ((Integer) maior > (Integer) outroMaior) {
 			return maior;
-		} else if ((Integer)outroMaior > (Integer)maior) {
+		} else if ((Integer) outroMaior > (Integer) maior) {
 			return outroMaior;
 		} else {
 			return maior;
