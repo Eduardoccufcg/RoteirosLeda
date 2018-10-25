@@ -11,15 +11,56 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	}
 
 	public static void main(String[] args) {
-		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
-		lista.insert(2);
-		lista.insert(0);
-		lista.insert(23);
-		lista.insert(75);
+		SingleLinkedListImpl<Integer> lista1 = new SingleLinkedListImpl<Integer>();
+		SingleLinkedListImpl<Integer> lista2 = new SingleLinkedListImpl<Integer>();
+		lista1.insertOrdenado(2);
+		lista1.insertOrdenado(0);
+		lista1.insertOrdenado(23);
+		lista1.insertOrdenado(75);
+		System.out.println(Arrays.toString(lista1.toArray()));
+		lista2.insertOrdenado(-8);
+		lista2.insertOrdenado(76);
+		lista2.insertOrdenado(1);
+		lista2.insertOrdenado(3);
+		merge(lista1, lista2);
 
-		System.out.println(Arrays.toString(lista.toArray()));
-		lista.reverseIterativo();
-		System.out.println(Arrays.toString(lista.toArray()));
+		System.out.println(Arrays.toString(lista1.toArray()));
+
+	}
+
+	private static void merge(SingleLinkedListImpl<Integer> l1, SingleLinkedListImpl<Integer> l2) {
+		SingleLinkedListNode<Integer> aux = l2.getHead();
+		while (!aux.isNIL()) {
+			l1.insertOrdenado((Integer) aux.getData());
+			aux = aux.getNext();
+		}
+		
+	}
+	public void insertOrdenado(T element) {
+		if (element != null) {
+
+			SingleLinkedListNode<T> auxHead,newNode;
+			// Faco uma copia do head
+			auxHead = head;
+			newNode = new SingleLinkedListNode<>(element, new SingleLinkedListNode<T>());
+			if (isEmpty() || (newNode).compareTo(auxHead.getData()) < 0) {
+				// crio um elemento e seu proximo vai ser o head atual
+				newNode.setNext(head);
+				// o head aponta agora para o elemento inserido
+				head = newNode;
+			} else {
+				// procuro o elemento em que seu proximo e NIL ou menor ou maior que elemento
+				// dependendo da implementacao.
+
+				while (!auxHead.next.isNIL() && !((newNode).compareTo(auxHead.next.getData()) < 0)) {
+					auxHead = auxHead.next;
+				}
+				// elementos --> elemento inserido ----> elem.
+				newNode.setNext(auxHead.next);
+				auxHead.setNext(newNode);
+			}
+
+		}
 
 	}
 
@@ -76,7 +117,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		SingleLinkedListNode<T> aux = this.head;
 		if (!aux.isNIL()) {
 			menor = aux.getData();
-			aux = aux.getNext();
+			aux = aux.getNext(); // olho o prox
 			while (!aux.isNIL()) {
 				if (aux.compareTo(menor) < 0) {
 					menor = aux.getData();
@@ -328,34 +369,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public void insertOrdenado(T element) {
-		if (element != null) {
-
-			SingleLinkedListNode<T> auxHead, newHead, newNode;
-			// Faco uma copia do head
-			auxHead = head;
-			newNode = new SingleLinkedListNode<>(element, new SingleLinkedListNode<T>());
-			if (isEmpty() || (newNode).compareTo(auxHead.getData()) > 0) {
-				// crio um elemento e seu proximo vai ser o head atual
-				newHead = new SingleLinkedListNode<T>(element, head);
-				// o head aponta agora para o elemento inserido
-				head = newHead;
-			} else {
-				// procuro o elemento em que seu proximo e NIL ou menor ou maior que elemento
-				// dependendo da implementacao.
-
-				while (!auxHead.next.isNIL() && !((newNode).compareTo(auxHead.next.getData()) > 0)) {
-					auxHead = auxHead.next;
-				}
-				// elementos --> elemento inserido ----> NIL.
-				newNode = new SingleLinkedListNode<>(element, auxHead.next);
-				auxHead.next = newNode;
-			}
-
-		}
-
-	}
+	
 
 	@Override
 	public void remove(T element) {
@@ -370,6 +384,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				aux = aux.getNext();
 			}
 			// se o aux nao e NIL entao o elemento a ser removido esta entre dois elementos
+			// saiu pq encontrou o elemento
 			if (!aux.isNIL()) {
 				previous.setNext(aux.getNext());
 			}
