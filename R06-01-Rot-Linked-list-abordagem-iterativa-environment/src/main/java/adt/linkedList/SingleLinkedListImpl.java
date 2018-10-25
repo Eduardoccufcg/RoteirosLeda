@@ -14,10 +14,39 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		SingleLinkedListImpl<Integer> lista = new SingleLinkedListImpl<Integer>();
 		lista.insert(2);
 		lista.insert(0);
+		lista.insert(23);
+		lista.insert(75);
+
+		System.out.println(Arrays.toString(lista.toArray()));
+		lista.reverseIterativo();
+		System.out.println(Arrays.toString(lista.toArray()));
 
 	}
 
-	/*     
+	public void reverseIterativo() {
+		if (!isEmpty()) {
+			SingleLinkedListNode<T> node;
+			SingleLinkedListNode<T> aux = this.head;
+			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<T>();
+			while (!aux.isNIL()) {
+
+				// guardo a referencia do prox
+				node = aux.getNext();
+				// seto o prox do aux atual.(Sempre sera o anterior a ele)
+				aux.setNext(newHead);
+				// o novo head e o aux atual.
+				newHead = aux;
+				// o aux recebe a referencia do prox guardado em node
+				aux = node;
+
+			}
+			// o head agora é o ultimo elemento
+			this.head = newHead;
+
+		}
+	}
+
+	/*
 	 * Retorna nulo caso a lista esteja vazia
 	 */
 	public T maior() {
@@ -178,6 +207,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 		if (!elem.next.isNIL()) {
 			reverseElem(elem.getNext(), elem);
+
 		}
 		elem.setNext(prev);
 
@@ -194,7 +224,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 		// troco os apontadores de proximo de cada elemento recursivamente.
 		reverseElem(this.head, new SingleLinkedListNode<T>());
-		// O head agora é p ultimoelemento da lista, ou seja o primeiro da lista
+		// O head agora é p ultimo elemento da lista, ou seja o primeiro da lista
 		// invertida.
 		this.head = last;
 
@@ -203,15 +233,10 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	// inverter a lista em uma nova abordagem, sem alterar os apontadores apenas
 	// removendo os elementos e adicionando.
 	public void reverseOther() {
-		reversePasso(this.head);
-
-	}
-
-	private void reversePasso(SingleLinkedListNode<T> node) {
-		if (!node.next.isNIL()) {
-			T data = node.getData();
+		if (!head.isNIL()) {
+			T data = head.getData();
 			removeFirst();
-			reversePasso(this.head);
+			reverseOther();
 			insert(data);
 
 		}
