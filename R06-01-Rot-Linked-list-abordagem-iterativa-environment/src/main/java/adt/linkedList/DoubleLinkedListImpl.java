@@ -128,7 +128,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements 
 	public void insertFirst(T element) {
 		DoubleLinkedListNode<T> newHead;
 
-		// crio o novo no
+		// crio o novo no (element, next,previous)
 		newHead = new DoubleLinkedListNode<T>(element, (DoubleLinkedListNode<T>) head, new DoubleLinkedListNode<T>());
 
 		((DoubleLinkedListNode<T>) head).setPrevious(newHead);
