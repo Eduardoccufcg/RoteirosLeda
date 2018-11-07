@@ -152,24 +152,19 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		return root;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public T[] heapsort(T[] array) {
 
-		buildHeap(array);
+		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o1 - o2);
 
-		for (int i = index; i >= 0; i--) {
-
-			// visualizarArray(7);
-			System.out.println(Arrays.toString(array));
-
-			Util.swap(array, i, 0);
-			index--;
-			heapify(0);
+		for (int i = 0; i < array.length; i++) {
+			heapAux.insert((Integer) array[i]);
 		}
+		for (int i = heapAux.size() - 1; i >= 0; i--) {
+			array[i] = (T) heapAux.extractRootElement();
 
-		
-		
-
+		}
 		return array;
 	}
 
