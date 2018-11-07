@@ -234,6 +234,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 		ArrayList<T> list = new ArrayList<T>();
 		preOrder(root, list);
+		@SuppressWarnings("unchecked")
 		T[] array = list.toArray((T[]) new Comparable[this.size()]);
 		return array;
 
@@ -260,6 +261,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 		ArrayList<T> list = new ArrayList<T>();
 		order(root, list);
+		@SuppressWarnings("unchecked")
 		T[] array = list.toArray((T[]) new Comparable[this.size()]);
 		return array;
 	}
@@ -278,6 +280,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 		ArrayList<T> list = new ArrayList<T>();
 		postOrder(root, list);
+		@SuppressWarnings("unchecked")
 		T[] array = list.toArray((T[]) new Comparable[this.size()]);
 		return array;
 	}
