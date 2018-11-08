@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-11-05T16:13:15.267-0300</date>
+  <logger>EDUARDO PEREIRA DOS SANTOS</logger>
+  <level>FINE</level>
+  <message>File 117210342-EDUARDO PEREIRA DOS SANTOS.zip was received. It was sent by EDUARDO PEREIRA DOS SANTOS from IP 150.165.42.178</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-11-07T13:11:35.539-0300</date>
+  <logger>EDUARDO PEREIRA DOS SANTOS</logger>
+  <level>FINE</level>
+  <message>File 117210342-EDUARDO PEREIRA DOS SANTOS.zip was received. It was sent by EDUARDO PEREIRA DOS SANTOS from IP 192.168.42.192</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-11-07T15:27:04.786-0300</date>
+  <logger>EDUARDO PEREIRA DOS SANTOS</logger>
+  <level>FINE</level>
+  <message>File 117210342-EDUARDO PEREIRA DOS SANTOS.zip was received. It was sent by EDUARDO PEREIRA DOS SANTOS from IP 192.168.42.192</message>
+</record>
