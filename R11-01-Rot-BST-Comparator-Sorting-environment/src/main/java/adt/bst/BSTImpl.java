@@ -119,50 +119,53 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public BSTNode<T> sucessor(T element) {
 		BSTNode<T> node = search(element);
-		if (node.isEmpty()) {
-			return null;
-		} else if (!node.getRight().isEmpty()) {
-			return minimum((BSTNode<T>) node.getRight());
-		} else if (node.getParent().getLeft().equals(node)) {
-			return (BSTNode<T>) node.getParent();
+		BSTNode<T> sucessor = null;
+		if (!node.isEmpty()) {
+			if (!node.getRight().isEmpty()) {
+				sucessor = minimum((BSTNode<T>) node.getRight());
+			} else {
+				sucessor = sucessor(node, element);
+			}
 		}
-
-		while (!node.isEmpty() && this.verificarRight(node)) {
-			node = (BSTNode<T>) node.getParent();
-		}
-		return (BSTNode<T>) node.getParent();
+		return sucessor;
 	}
 
-	private boolean verificarRight(BSTNode<T> node) {
-		if (node.getParent() == null || node.isEmpty()) {
-			return false;
+	private BSTNode<T> sucessor(BSTNode<T> node, T element) {
+		BSTNode<T> sucessor = null;
+		if (node.getParent() != null) {
+			if (node.getParent().getData().compareTo(element) > 0) {
+				sucessor = (BSTNode<T>) node.getParent();
+			} else {
+				sucessor = sucessor((BSTNode<T>) node.getParent(), element);
+			}
 		}
-		return node.getParent().getRight().equals(node);
+		return sucessor;
 	}
 
 	@Override
 	public BSTNode<T> predecessor(T element) {
-
 		BSTNode<T> node = search(element);
-		if (node.isEmpty()) {
-			return null;
-		} else if (!node.getLeft().isEmpty()) {
-			return maximum((BSTNode<T>) node.getLeft());
-		} else if (node.getParent().getRight().equals(node)) {
-			return (BSTNode<T>) node.getParent();
+		BSTNode<T> predecessor = null;
+		if (!node.isEmpty()) {
+			if (!node.getLeft().isEmpty()) {
+				predecessor =  maximum((BSTNode<T>) node.getLeft());
+			} else {
+				predecessor =  predecessor(node, element);
+			}
 		}
-
-		while (!node.isEmpty() && this.verificarLeft(node)) {
-			node = (BSTNode<T>) node.getParent();
-		}
-		return (BSTNode<T>) node.getParent();
+		return predecessor;
 	}
 
-	private boolean verificarLeft(BSTNode<T> node) {
-		if (node.getParent() == null || node.isEmpty()) {
-			return false;
-		}
-		return node.getParent().getLeft().equals(node);
+	private BSTNode<T> predecessor(BSTNode<T> node, T element) {
+		BSTNode<T> predecessor = null;
+		if (node.getParent() != null) {
+			if (node.getParent().getData().compareTo(element) < 0) {
+				predecessor  =  (BSTNode<T>) node.getParent();
+			} else {
+				predecessor =  predecessor((BSTNode<T>) node.getParent(), element);
+			}
+		} 
+		return predecessor;
 	}
 
 	@Override

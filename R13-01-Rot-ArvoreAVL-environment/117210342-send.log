@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-11-08T14:20:18.227-0300</date>
+  <logger>EDUARDO PEREIRA DOS SANTOS</logger>
+  <level>FINE</level>
+  <message>File 117210342-EDUARDO PEREIRA DOS SANTOS.zip was received. It was sent by EDUARDO PEREIRA DOS SANTOS from IP 192.168.42.192</message>
+</record>
