@@ -1,7 +1,5 @@
 package sorting.variationsOfBubblesort;
 
-
-
 import sorting.AbstractSorting;
 import util.Util;
 
@@ -18,19 +16,18 @@ public class RecursiveBubbleSort<T extends Comparable<T>> extends AbstractSortin
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 
 		// Base case
-		if (leftIndex >= rightIndex) {
-			return;
-		}
+		if (leftIndex < rightIndex) {
 
-		
-		for (int i = leftIndex; i < rightIndex; i++) {
-			if (array[i].compareTo(array[i + 1]) > 0) {
-				Util.swap(array, i, i + 1);
+			for (int i = leftIndex; i < rightIndex; i++) {
+				if (array[i].compareTo(array[i + 1]) > 0) {
+					Util.swap(array, i, i + 1);
+				}
 			}
-		}
 
-	
-		sort(array, leftIndex, rightIndex - 1);
+			// levei o maior "para o final" logo esta ordenado.
+			sort(array, leftIndex, rightIndex - 1);
+
+		}
 
 	}
 

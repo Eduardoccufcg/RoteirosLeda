@@ -7,10 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.simpleSorting.BubbleSort;
-import sorting.simpleSorting.InsertionSort;
-import sorting.simpleSorting.SelectionSort;
-import sorting.variationsOfBubblesort.SimultaneousBubblesort;
+import sorting.variationsOfBubblesort.RecursiveBubbleSort;
 
 
 
@@ -83,7 +80,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 		
-		this.implementation = new InsertionSort<Integer>();
+		this.implementation = new RecursiveBubbleSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
