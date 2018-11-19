@@ -1,7 +1,21 @@
 package adt.bst;
 
-
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
+
+	public static void main(String[] args) {
+		BSTImpl<Integer> tree = new BSTImpl<>();
+		tree.insert(15);
+		tree.insert(6);
+		tree.insert(3);
+		tree.insert(7);
+		tree.insert(2);
+		tree.insert(4);
+		tree.insert(13);
+		tree.insert(9);
+		System.out.println(tree.sucessor(6));
+		System.out.println(tree.predecessor(15));
+
+	}
 
 	protected BSTNode<T> root;
 
@@ -122,24 +136,24 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	public BSTNode<T> sucessor(T element) {
 
 		BSTNode<T> node = search(element);
-
+		// nao tem sucessor
 		if (node.isEmpty())
 			return null;
 
 		if (!node.getRight().isEmpty()) {
 
+			// o sucessor e o menor elemento a direita.
 			return minimum((BSTNode<T>) node.getRight());
 		} else {
-			BSTNode<T> parent = (BSTNode<T>) node.getParent();
+			// procurando o primeiro maior ascendente
+			BSTNode<T> y = (BSTNode<T>) node.getParent();
 
-			while (!parent.isEmpty() && node.equals(parent.getRight())) {
-				node = parent;
-				parent = (BSTNode<T>) node.getParent();
+			// usando o pai preciso ver se nao e nulo.
+			while (y != null && node.equals(y.getRight())) {
+				node = y;
+				y = (BSTNode<T>) node.getParent();
 			}
-			if (parent.isEmpty())
-				return null;
-
-			return parent;
+			return y;
 		}
 	}
 
@@ -153,15 +167,13 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		if (!aux.getLeft().isEmpty()) {
 			return maximum((BSTNode<T>) aux.getLeft());
 		} else {
-			BSTNode<T> parent = (BSTNode<T>) aux.getParent();
+			BSTNode<T> y = (BSTNode<T>) aux.getParent();
 
-			while (!parent.isEmpty() && aux.equals(parent.getLeft())) {
-				aux = parent;
-				parent = (BSTNode<T>) aux.getParent();
+			while (y != null && aux.equals(y.getLeft())) {
+				aux = y;
+				y = (BSTNode<T>) aux.getParent();
 			}
-			if (parent.isEmpty())
-				return null;
-			return parent;
+			return y;
 		}
 	}
 
@@ -179,10 +191,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private void remove(BSTNode<T> node) {
 		if (!node.isEmpty()) {
 
+			// folha
 			if (node.isLeaf()) {
 				node.setData(null);
 			}
 
+			// 1 filho
 			else if (node.getLeft().isEmpty() || node.getRight().isEmpty()) {
 				if (node.getParent() != null) {
 					if (!node.getParent().getLeft().equals(node)) {
@@ -211,6 +225,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 					root.setParent(null);
 				}
 
+				// 2 filhos
 			} else {
 				T suc = sucessor(node.getData()).getData();
 				remove(suc);
