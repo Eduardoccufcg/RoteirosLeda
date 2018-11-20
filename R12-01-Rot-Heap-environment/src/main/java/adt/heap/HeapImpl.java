@@ -152,17 +152,49 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		return root;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public T[] heapsort(T[] array) {
 
+		// abordagem 1 com min heap.
+		// HeapImpl heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
+		// for (int i = 0; i < array.length; i++) {
+		// heapAux.insert(array[i]);
+		// }
+		//
+		// for (int i = 0; i < array.length; i++) {
+		// array[i] = (T) heapAux.extractRootElement();
+		//
+		// }
+		//
+		// return array;
+
+		// abordagem 1 com max heap
+
+		// HeapImpl heapAux = new HeapImpl<Integer>((o1, o2) -> o1 - o2);
+
+		// for (int i = 0; i < array.length; i++) {
+		// heapAux.insert(array[i]);
+		// }
+		// for (int i = heapAux.size() - 1; i >= 0; i--) {
+		// array[i] = (T) heapAux.extractRootElement();
+
+		// }
+		// return array;
+
+		// abordagem 2(In-place)
+
 		HeapImpl heapAux = new HeapImpl<Integer>((o1, o2) -> o1 - o2);
-
 		heapAux.buildHeap(array);
-		for (int i = heapAux.size()-1; i >= 0; i--) {
-			array[i] = (T) heapAux.extractRootElement();
+		for (int k = array.length - 1; k >= 0; k--) {
 
+			// Move current root to end
+			Util.swap(array, 0, k);
+			heapAux.index--;
+			heapAux.heapify(0);
 		}
 		return array;
+
 	}
 
 	@Override
