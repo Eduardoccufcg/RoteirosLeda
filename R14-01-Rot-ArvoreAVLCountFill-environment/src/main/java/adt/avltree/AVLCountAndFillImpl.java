@@ -42,33 +42,34 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 	protected void rebalance(BSTNode<T> node) {
 		int balance = this.calculateBalance(node);
 
-		if (balance > 1) {
-			int balanceLeft = this.calculateBalance((BSTNode<T>) node.getLeft());
-			if (balanceLeft > 0) {
+		if (!node.isEmpty() && !(Math.abs(balance) <= 1)) {
+
+			// no pesa pra esquerda
+			if (balance > 0) {
+				int balanceLeft = this.calculateBalance((BSTNode<T>) node.getLeft());
+				// filho a esquerda pesa pra direita
+				if (balanceLeft < 0) {
+					Util.leftRotation((BSTNode<T>) node.getLeft());
+					LRcounter++;
+				} else {
+					LLcounter++;
+				}
 				Util.rightRotation(node);
-				LLcounter++;
-			} else if (balanceLeft <= 0) {
-				Util.leftRotation((BSTNode<T>) node.getLeft());
-				Util.rightRotation(node);
-				LRcounter++;
-			}
 
-			if (this.getRoot().equals(node)) {
-				this.root = (BSTNode<T>) node.getParent();
-			}
+			} else {
+				// no pesa pra direita
+				int balanceRight = this.calculateBalance((BSTNode<T>) node.getRight());
+				// filho a direita pesa pra esquerda
+				if (balanceRight > 0) {
 
-		}
-		if (balance < -1) {
-			int balanceRight = this.calculateBalance((BSTNode<T>) node.getRight());
-			if (balanceRight < 0) {
+					Util.rightRotation((BSTNode<T>) node.getRight());
+					RLcounter++;
+				} else {
+					RRcounter++;
+				}
 				Util.leftRotation(node);
-				RRcounter++;
-			} else if (balanceRight >= 0) {
-				Util.rightRotation((BSTNode<T>) node.getRight());
-				Util.leftRotation(node);
-				RLcounter++;
-			}
 
+			}
 			if (this.getRoot().equals(node)) {
 				this.root = (BSTNode<T>) node.getParent();
 			}
