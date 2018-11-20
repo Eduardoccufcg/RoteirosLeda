@@ -1,19 +1,29 @@
 package adt.bst;
 
+import java.util.Arrays;
+
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public static void main(String[] args) {
 		BSTImpl<Integer> tree = new BSTImpl<>();
-		tree.insert(15);
-		tree.insert(6);
-		tree.insert(3);
-		tree.insert(7);
-		tree.insert(2);
+		tree.insert(8);
 		tree.insert(4);
-		tree.insert(13);
+		tree.insert(12);
+		tree.insert(2);
+		tree.insert(6);
+		tree.insert(10);
+		tree.insert(14);
+		tree.insert(1);
+		tree.insert(3);
+		tree.insert(5);
+		tree.insert(7);
 		tree.insert(9);
-		System.out.println(tree.sucessor(6));
-		System.out.println(tree.predecessor(15));
+		tree.insert(11);
+		tree.insert(13);
+		tree.insert(15);
+		System.out.println(Arrays.toString(tree.preOrder()));
+		System.out.println(Arrays.toString(tree.order()));
+		System.out.println(Arrays.toString(tree.postOrder()));
 
 	}
 
