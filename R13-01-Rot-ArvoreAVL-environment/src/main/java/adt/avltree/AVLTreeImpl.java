@@ -41,7 +41,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 				// filho a direita pesa pra esquerda
 				if (balanceRight > 0) {
 					
-					Util.leftRotation((BSTNode<T>) node.getRight());
+					Util.rightRotation((BSTNode<T>) node.getRight());
 				}
 				Util.leftRotation(node);
 				
