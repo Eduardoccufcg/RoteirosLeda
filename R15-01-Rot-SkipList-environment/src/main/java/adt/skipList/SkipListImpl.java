@@ -54,11 +54,7 @@ public class SkipListImpl<T> implements SkipList<T> {
 				}
 
 			}
-
-		} else {
-			throw new RuntimeException();
 		}
-
 	}
 
 	@SuppressWarnings("unchecked")
