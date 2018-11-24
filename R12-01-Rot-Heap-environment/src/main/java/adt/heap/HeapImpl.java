@@ -3,6 +3,7 @@ package adt.heap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import util.Util;
 
@@ -16,6 +17,15 @@ import util.Util;
  * min-heap.
  */
 public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
+
+	public static void main(String[] args) {
+		// minHeap
+		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
+
+		System.out.println(Arrays.toString(
+				heapAux.merge(new Integer[] { 1, 7, 78, 5, 6, 188, 8 }, new Integer[] { 0, 14, 21, -1, 17 })));
+
+	}
 
 	protected T[] heap;
 	protected int index = -1;
@@ -182,7 +192,7 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 		// }
 		// return array;
 
-		// abordagem 2(In-place)
+		// abordagem 2(In-place) Max Heap
 
 		HeapImpl heapAux = new HeapImpl<Integer>((o1, o2) -> o1 - o2);
 		heapAux.buildHeap(array);
@@ -212,6 +222,59 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
 	public T[] getHeap() {
 		return heap;
+	}
+
+	// Breadth-first search (BFS) ou Encaminhamento em Largura é uma forma de
+	// percorrer uma árvore visitando os nós vizinhos de um determinado nível desta
+	// árvore.
+	public List<T> BFS(int level) {
+		if (level > this.index || level < 0) {
+			throw new RuntimeException("Level inexistente");
+		}
+
+		// 2 ^ level - 1
+		int comecoLevel = (int) (Math.pow(2, level) - 1);
+		int levelFinal = comecoLevel * 2;
+		List<T> elementosPorLevel = new ArrayList<T>();
+
+		for (int i = comecoLevel; i <= levelFinal; i++) {
+			elementosPorLevel.add(heap[i]);
+		}
+
+		return elementosPorLevel;
+
+	}
+
+	// Merge de dois arrays usando heap min
+	public Integer[] merge(Integer[] arrayA, Integer[] arrayB) {
+
+		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
+		for (Integer element : arrayA) {
+
+			heapAux.insert(element);
+
+		}
+
+		for (Integer element : arrayB) {
+
+			heapAux.insert(element);
+
+		}
+
+		Integer[] newHeap = new Integer[heapAux.size()];
+
+		for (int index = 0; index < newHeap.length; index++) {
+
+			newHeap[index] = heapAux.extractRootElement();
+
+		}
+
+		return newHeap;
+
+	}
+
+	private int calculaQuantidadeNiveis() {
+		return (int) (Math.log((size() + 1) / 2) / Math.log(2));
 	}
 
 }
