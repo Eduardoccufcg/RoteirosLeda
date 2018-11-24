@@ -3,6 +3,7 @@ package adt.avltree;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Queue;
 
 import adt.bst.BSTNode;
 import adt.bt.Util;
@@ -14,6 +15,17 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 	private int RRcounter;
 	private int RLcounter;
 
+	
+	public static void main(String[] args) {
+		AVLCountAndFillImpl<Integer> a = new AVLCountAndFillImpl<Integer>();
+		Integer[] keys = { 8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15 };
+		a.fillWithoutRebalance(keys);
+	}
+	
+	
+	
+	
+	
 	public AVLCountAndFillImpl() {
 
 	}
@@ -80,6 +92,8 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 
 	@Override
 	public void fillWithoutRebalance(T[] array) {
+
+	
 		List<T[]> list = new ArrayList<T[]>();
 
 		Arrays.sort(array);
