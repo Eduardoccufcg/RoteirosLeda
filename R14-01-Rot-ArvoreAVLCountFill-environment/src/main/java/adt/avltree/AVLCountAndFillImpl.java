@@ -1,7 +1,9 @@
 package adt.avltree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.List;
 import java.util.Queue;
 
@@ -15,17 +17,22 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 	private int RRcounter;
 	private int RLcounter;
 
-	
 	public static void main(String[] args) {
 		AVLCountAndFillImpl<Integer> a = new AVLCountAndFillImpl<Integer>();
-		Integer[] keys = { 8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15 };
-		a.fillWithoutRebalance(keys);
+		a.insert(99);
+
+		a.insert(44);
+		a.insert(71);
+		a.insert(80);
+		a.insert(74);
+		a.insert(63);
+		a.insert(59);
+		System.out.println(a.RRcounter);
+		System.out.println(a.LLcounter);
+		System.out.println(a.RLcounter);
+		System.out.println(a.LRcounter);
 	}
-	
-	
-	
-	
-	
+
 	public AVLCountAndFillImpl() {
 
 	}
@@ -93,24 +100,19 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 	@Override
 	public void fillWithoutRebalance(T[] array) {
 
-	
-		List<T[]> list = new ArrayList<T[]>();
-
+		Deque<T[]> fila = new ArrayDeque<>();
 		Arrays.sort(array);
-		list.add(array);
-		int i = 0;
-		while (i < list.size()) {
-			T[] arrayAux = list.get(i);
+		fila.add(array);
+		while (!fila.isEmpty()) {
+			T[] arrayAux = fila.removeFirst();
 			int middle = arrayAux.length / 2;
 			T[] arrayAux1 = Arrays.copyOfRange(arrayAux, 0, middle);
 			T[] arrayAux2 = Arrays.copyOfRange(arrayAux, middle + 1, arrayAux.length);
 			if (arrayAux.length > 1) {
-				list.add(arrayAux1);
-				list.add(arrayAux2);
+				fila.add(arrayAux1);
+				fila.add(arrayAux2);
 			}
 			insert(arrayAux[middle]);
-			i++;
-
 		}
 
 	}
