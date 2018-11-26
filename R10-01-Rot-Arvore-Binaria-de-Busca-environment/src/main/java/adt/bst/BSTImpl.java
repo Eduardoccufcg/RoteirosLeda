@@ -8,16 +8,22 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public static void main(String[] args) {
 		BSTImpl<Integer> bst = new BSTImpl<>();
+		bst.insert(100);
 		bst.insert(50);
+		bst.insert(45);
 		bst.insert(55);
-		bst.insert(1);
-		bst.insert(17);
-		bst.insert(16);
-		bst.insert(54);
+		bst.insert(40);
+		bst.insert(46);
+		bst.insert(52);
 		bst.insert(56);
-		
-	
-		System.out.println(Arrays.toString(bst.levelOrder()));
+		bst.insert(150);
+		bst.insert(140);
+		bst.insert(160);
+		bst.insert(130);
+		bst.insert(145);
+		bst.insert(156);
+		bst.insert(167);
+		System.out.println(bst.qtdNos());
 	}
 
 	protected BSTNode<T> root;
@@ -291,6 +297,14 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return array;
 	}
 
+	public T[] levelOrderRL() {
+		T[] array = (T[]) new Comparable[this.size()];
+		if (this.isEmpty())
+			return array;
+		levelOrderRL(array, root, 0);
+		return array;
+	}
+
 	private void levelOrder(T[] array, BSTNode<T> node, int i) {
 		Deque<BSTNode<T>> fila = new ArrayDeque<>();
 		fila.add(node);
@@ -302,6 +316,23 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			}
 			if (!atual.getRight().isEmpty()) {
 				fila.add((BSTNode<T>) atual.getRight());
+			}
+		}
+
+	}
+
+	private void levelOrderRL(T[] array, BSTNode<T> node, int i) {
+		Deque<BSTNode<T>> fila = new ArrayDeque<>();
+		fila.add(node);
+		while (!fila.isEmpty()) {
+			BSTNode<T> atual = fila.removeFirst();
+			array[i++] = atual.getData();
+
+			if (!atual.getRight().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getRight());
+			}
+			if (!atual.getLeft().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getLeft());
 			}
 		}
 
@@ -345,5 +376,51 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			result = 1 + size((BSTNode<T>) node.getLeft()) + size((BSTNode<T>) node.getRight());
 		}
 		return result;
+	}
+
+	// calcula a quantidade de folhas
+	public int quantFolhas() {
+		return quantFolhas(root);
+	}
+
+	private int quantFolhas(BSTNode<T> node) {
+		if (node.isEmpty()) {
+			return 0;
+		} else {
+			if (node.isLeaf()) {
+				return 1;
+			} else {
+				return quantFolhas((BSTNode<T>) node.getLeft()) + quantFolhas((BSTNode<T>) node.getRight());
+			}
+		}
+	}
+
+	public double qtdNos() {
+		return postOrder(root,0,0);
+	}
+
+	private double postOrder(BSTNode<T> node,int soma,int q) {
+	
+		if (!node.isEmpty()) {
+			soma = soma + (int)node.getData();
+			postOrder((BSTNode<T>) node.getLeft(),soma,q);
+			
+			postOrder((BSTNode<T>) node.getRight(),soma,++q);
+		}
+		
+		return soma / q;
+	}
+
+	private int visit(BSTNode<T> node) {
+
+		return 1;
+	}
+	
+	
+	
+	private Integer soma(BSTNode<T> node) {
+		
+
+		return (Integer) node.getData();
 	}
 }
