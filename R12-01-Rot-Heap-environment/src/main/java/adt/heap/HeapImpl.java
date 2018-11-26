@@ -227,18 +227,17 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	// Breadth-first search (BFS) ou Encaminhamento em Largura é uma forma de
 	// percorrer uma árvore visitando os nós vizinhos de um determinado nível desta
 	// árvore.
-	public List<T> BFS(int level) {
+	public T[] elementsByLevel(int level) {
 		if (level > this.index || level < 0) {
 			throw new RuntimeException("Level inexistente");
 		}
-
 		// 2 ^ level - 1
 		int comecoLevel = (int) (Math.pow(2, level) - 1);
 		int levelFinal = comecoLevel * 2;
-		List<T> elementosPorLevel = new ArrayList<T>();
+		T[] elementosPorLevel = (T[]) new Comparable[comecoLevel + levelFinal + 1];
 
 		for (int i = comecoLevel; i <= levelFinal; i++) {
-			elementosPorLevel.add(heap[i]);
+			elementosPorLevel[i] = heap[i];
 		}
 
 		return elementosPorLevel;
@@ -246,30 +245,35 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	}
 
 	// Merge de dois arrays usando heap min
-	public Integer[] merge(Integer[] arrayA, Integer[] arrayB) {
+	@SuppressWarnings("unchecked")
+	public T[] merge(T[] arrayA, T[] arrayB) {
 
-		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
-		for (Integer element : arrayA) {
-
-			heapAux.insert(element);
-
-		}
-
-		for (Integer element : arrayB) {
+		// Ordem crescente (min Heap)
+		HeapImpl<T> heapAux = new HeapImpl<T>((o1, o2) -> (Integer) o2 - (Integer) o1);
+		// insere os elementos da primeira lista
+		for (T element : arrayA) {
 
 			heapAux.insert(element);
 
 		}
 
-		Integer[] newHeap = new Integer[heapAux.size()];
+		// insere os elementos da segunda lista
+		for (T element : arrayB) {
 
-		for (int index = 0; index < newHeap.length; index++) {
-
-			newHeap[index] = heapAux.extractRootElement();
+			heapAux.insert(element);
 
 		}
 
-		return newHeap;
+		T[] arrayC = (T[]) new Comparable[heapAux.size()];
+
+		// Retira da heap e coloca no arrayC
+		for (int index = 0; index < arrayC.length; index++) {
+
+			arrayC[index] = heapAux.extractRootElement();
+
+		}
+
+		return arrayC;
 
 	}
 
