@@ -11,7 +11,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 		tree.insert(2);
 
-		System.out.println(tree.ceil(1));
+		System.out.println(tree.ceil(3));
 
 	}
 
@@ -28,41 +28,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	// na subárvore com raiz x.
 	// Devolve null se esse piso não existe.
 
-	private BSTNode<T> floor(BSTNode<T> x, T key) {
-		BSTNode<T> floor = new BSTNode<T>();
-
-		if (!x.isEmpty()) {
-			int cmp = key.compareTo(x.getData());
-			if (cmp == 0) {
-				floor = x;
-			} else if (cmp < 0) {
-				BSTNode<T> t = floor((BSTNode<T>) x.getLeft(), key);
-
-				if (!t.isEmpty()) {
-					floor = t;
-				}
-
-				else {
-					floor = x;
-				}
-
-			} else {
-				floor = floor((BSTNode<T>) x.getRight(), key);
-
-			}
-
-		}
-		return floor;
-
-	}
-
-	public T ceil(T key) {
-		BSTNode<T> x = floor(root, key);
-		if (x.isEmpty())
-			return null;
-		return x.getData();
-	}
-
 	private BSTNode<T> ceil(BSTNode<T> x, T key) {
 		BSTNode<T> ceil = new BSTNode<T>();
 
@@ -71,10 +36,8 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			if (cmp == 0) {
 				ceil = x;
 			} else if (cmp < 0) {
-				ceil = floor((BSTNode<T>) x.getLeft(), key);
+				BSTNode<T> t = ceil((BSTNode<T>) x.getLeft(), key);
 
-			} else {
-				BSTNode<T> t = floor((BSTNode<T>) x.getRight(), key);
 				if (!t.isEmpty()) {
 					ceil = t;
 				}
@@ -83,10 +46,47 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 					ceil = x;
 				}
 
+			} else {
+				ceil = ceil((BSTNode<T>) x.getRight(), key);
+
 			}
 
 		}
 		return ceil;
+
+	}
+
+	public T ceil(T key) {
+		BSTNode<T> x = ceil(root, key);
+		if (x.isEmpty())
+			return null;
+		return x.getData();
+	}
+
+	private BSTNode<T> floor(BSTNode<T> x, T key) {
+		BSTNode<T> floor = new BSTNode<T>();
+
+		if (!x.isEmpty()) {
+			int cmp = key.compareTo(x.getData());
+			if (cmp == 0) {
+				floor = x;
+			} else if (cmp < 0) {
+				floor = floor((BSTNode<T>) x.getLeft(), key);
+
+			} else {
+				BSTNode<T> t = floor((BSTNode<T>) x.getRight(), key);
+				if (!t.isEmpty()) {
+					floor = t;
+				}
+
+				else {
+					floor = x;
+				}
+
+			}
+
+		}
+		return floor;
 
 	}
 
