@@ -1,5 +1,7 @@
 package adt.avltree;
 
+import java.util.Arrays;
+
 import adt.bst.BSTImpl;
 import adt.bst.BSTNode;
 import adt.bt.Util;
@@ -14,6 +16,46 @@ import adt.bt.Util;
  */
 public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements AVLTree<T> {
 
+	public static void main(String[] args) {
+		AVLTreeImpl<Integer> tree = new AVLTreeImpl<>();
+		tree.insert(8);
+
+		tree.insert(12);
+
+		tree.insert(10);
+
+		tree.insert(5);
+		tree.insert(7);
+
+		tree.insert(11);
+
+		tree.insert(15);
+		System.out.println(Arrays.toString(tree.order()));
+		System.out.println(tree.estatisticadeOrdem(2));
+
+	}
+
+	public T estatisticadeOrdem(int n) {
+		T estatistica = null;
+		if (n <= size()) {
+			if (n == 1) {
+				estatistica = minimum().getData();
+			} else {
+				T value = minimum().getData();
+				while (n > 1) {
+					BSTNode<T> node = sucessor(value);
+					value = node.getData();
+					n--;
+
+				}
+				estatistica = value;
+			}
+
+		}
+		return estatistica;
+
+	}
+
 	// AUXILIARY
 	protected int calculateBalance(BSTNode<T> node) {
 		return height((BSTNode<T>) node.getLeft()) - height((BSTNode<T>) node.getRight());
@@ -26,7 +68,7 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 
 		if (!node.isEmpty() && !(Math.abs(balance) <= 1)) {
 
-			//  no pesa pra esquerda
+			// no pesa pra esquerda
 			if (balance > 0) {
 				int balanceLeft = this.calculateBalance((BSTNode<T>) node.getLeft());
 				// filho a esquerda pesa pra direita
@@ -40,11 +82,10 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 				int balanceRight = this.calculateBalance((BSTNode<T>) node.getRight());
 				// filho a direita pesa pra esquerda
 				if (balanceRight > 0) {
-					
+
 					Util.rightRotation((BSTNode<T>) node.getRight());
 				}
 				Util.leftRotation(node);
-				
 
 			}
 			if (this.getRoot().equals(node)) {

@@ -8,22 +8,83 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		BSTImpl<Integer> tree = new BSTImpl<>();
 		tree.insert(8);
 		tree.insert(4);
-		tree.insert(12);
+
 		tree.insert(2);
-		tree.insert(6);
-		tree.insert(10);
-		tree.insert(14);
-		tree.insert(1);
-		tree.insert(3);
-		tree.insert(5);
-		tree.insert(7);
-		tree.insert(9);
-		tree.insert(11);
-		tree.insert(13);
-		tree.insert(15);
-		System.out.println(Arrays.toString(tree.preOrder()));
-		System.out.println(Arrays.toString(tree.order()));
-		System.out.println(Arrays.toString(tree.postOrder()));
+
+		System.out.println(tree.ceil(3));
+
+	}
+
+	// Devolve null se key não tem piso nesta BST.
+
+	public T floor(T key) {
+		BSTNode<T> x = floor(root, key);
+		if (x.isEmpty())
+			return null;
+		return x.getData();
+	}
+
+	// Devolve o nó que contém o piso de key
+	// na subárvore com raiz x.
+	// Devolve null se esse piso não existe.
+
+	private BSTNode<T> floor(BSTNode<T> x, T key) {
+		BSTNode<T> floor = new BSTNode<T>();
+
+		if (!x.isEmpty()) {
+			int cmp = key.compareTo(x.getData());
+			if (cmp == 0) {
+				floor = x;
+			} else if (cmp < 0) {
+				floor = floor((BSTNode<T>) x.getLeft(), key);
+			} else {
+				BSTNode<T> t = floor((BSTNode<T>) x.getRight(), key);
+				if (!t.isEmpty()) {
+					floor = t;
+				}
+
+				else {
+					floor = x;
+				}
+
+			}
+
+		}
+		return floor;
+
+	}
+
+	public T ceil(T key) {
+		BSTNode<T> x = floor(root, key);
+		if (x.isEmpty())
+			return null;
+		return x.getData();
+	}
+
+	private BSTNode<T> ceil(BSTNode<T> x, T key) {
+		BSTNode<T> ceil = new BSTNode<T>();
+
+		if (!x.isEmpty()) {
+			int cmp = key.compareTo(x.getData());
+			if (cmp == 0) {
+				ceil = x;
+			} else if (cmp < 0) {
+				ceil = floor((BSTNode<T>) x.getLeft(), key);
+
+			} else {
+				BSTNode<T> t = floor((BSTNode<T>) x.getRight(), key);
+				if (!t.isEmpty()) {
+					ceil = t;
+				}
+
+				else {
+					ceil = x;
+				}
+
+			}
+
+		}
+		return ceil;
 
 	}
 
@@ -130,7 +191,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return minimum(root);
 	}
 
-	private BSTNode<T> minimum(BSTNode<T> node) {
+	public BSTNode<T> minimum(BSTNode<T> node) {
 		BSTNode<T> result = null;
 		if (!node.isEmpty()) {
 			if (node.getLeft().isEmpty()) {
