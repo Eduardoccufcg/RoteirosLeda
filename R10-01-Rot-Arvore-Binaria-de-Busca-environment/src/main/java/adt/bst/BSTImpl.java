@@ -8,22 +8,8 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public static void main(String[] args) {
 		BSTImpl<Integer> bst = new BSTImpl<>();
-		bst.insert(100);
-		bst.insert(50);
-		bst.insert(45);
-		bst.insert(55);
-		bst.insert(40);
-		bst.insert(46);
-		bst.insert(52);
-		bst.insert(56);
-		bst.insert(150);
-		bst.insert(140);
-		bst.insert(160);
-		bst.insert(130);
-		bst.insert(145);
-		bst.insert(156);
-		bst.insert(167);
-		System.out.println(bst.qtdNos());
+		bst.insert(2);
+		System.out.println(bst.media());
 	}
 
 	protected BSTNode<T> root;
@@ -395,31 +381,26 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 	}
 
-	public double qtdNos() {
-		return postOrder(root,0,0);
-	}
-
-	private double postOrder(BSTNode<T> node,int soma,int q) {
-	
-		if (!node.isEmpty()) {
-			soma = soma + (int)node.getData();
-			postOrder((BSTNode<T>) node.getLeft(),soma,q);
-			
-			postOrder((BSTNode<T>) node.getRight(),soma,++q);
+	public double media() {
+		double result = 0;
+		if (!isEmpty()) {
+			result = soma(root) / size();
 		}
-		
-		return soma / q;
+		return result;
+
 	}
 
-	private int visit(BSTNode<T> node) {
+	private double soma(BSTNode<T> node) {
+		double result = 0;
+		// base case means doing nothing (return 0)
+		if (!node.isEmpty()) { // indusctive case
+			result = visit(node) + soma((BSTNode<T>) node.getLeft()) + soma((BSTNode<T>) node.getRight());
+		}
+		return result;
 
-		return 1;
 	}
-	
-	
-	
-	private Integer soma(BSTNode<T> node) {
-		
+
+	private Integer visit(BSTNode<T> node) {
 
 		return (Integer) node.getData();
 	}
