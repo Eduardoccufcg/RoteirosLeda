@@ -4,12 +4,22 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
+import adt.bt.BT;
+
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public static void main(String[] args) {
 		BSTImpl<Integer> bst = new BSTImpl<>();
-		bst.insert(2);
-		System.out.println(bst.media());
+		BSTImpl<Integer> bst2 = new BSTImpl<>();
+		bst.insert(5);
+		bst.insert(4);
+		bst.insert(7);
+		bst2.insert(5);
+		bst2.insert(4);
+		bst2.insert(7);
+		bst.insert(8);
+		System.out.println(bst.isBST(bst2));
+		
 	}
 
 	protected BSTNode<T> root;
@@ -62,6 +72,21 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			}
 		}
 		return result;
+	}
+
+	public boolean isEqualsBst(BSTImpl<T> l) {
+		return isEqualsBst(l.getRoot(), this.root);
+	}
+
+	public boolean isEqualsBst(BSTNode<T> node1, BSTNode<T> node2) {
+		boolean toReturn = false;
+		if (node1.isEmpty() && node2.isEmpty()) {
+			toReturn = true;
+		} else if (node1.getData().equals(node2.getData())) {
+			toReturn = isEqualsBst((BSTNode<T>) node1.getLeft(), (BSTNode<T>) node2.getLeft())
+					&& isEqualsBst((BSTNode<T>) node1.getRight(), (BSTNode<T>) node2.getRight());
+		}
+		return toReturn;
 	}
 
 	@Override
@@ -346,6 +371,27 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		return index;
 	}
 
+	public T[] descendingOrder() {
+		T[] array = (T[]) new Comparable[this.size()];
+		if (this.isEmpty())
+			return array;
+		descendingOrder(array, root, 0);
+		return array;
+	}
+
+	private int descendingOrder(T[] array, BSTNode<T> node, int index) {
+		if (!node.getRight().isEmpty()) {
+			index = descendingOrder(array, (BSTNode<T>) node.getRight(), index);
+		}
+
+		array[index++] = node.getData();
+		if (!node.getLeft().isEmpty()) {
+			index = descendingOrder(array, (BSTNode<T>) node.getLeft(), index);
+		}
+
+		return index;
+	}
+
 	/**
 	 * This method is already implemented using recursion. You must understand how
 	 * it work and use similar idea with the other methods.
@@ -366,19 +412,23 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	// calcula a quantidade de folhas
 	public int quantFolhas() {
-		return quantFolhas(root);
+		int toReturn = 0;
+		if (!this.isEmpty()) {
+			toReturn = quantFolhas(this.getRoot());
+		}
+		return toReturn;
 	}
 
 	private int quantFolhas(BSTNode<T> node) {
-		if (node.isEmpty()) {
-			return 0;
+		int result = 0;
+
+		if (node.isLeaf()) {
+			result = 1;
 		} else {
-			if (node.isLeaf()) {
-				return 1;
-			} else {
-				return quantFolhas((BSTNode<T>) node.getLeft()) + quantFolhas((BSTNode<T>) node.getRight());
-			}
+			result = quantFolhas((BSTNode<T>) node.getLeft()) + quantFolhas((BSTNode<T>) node.getRight());
 		}
+
+		return result;
 	}
 
 	public double media() {
@@ -403,5 +453,25 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	private Integer visit(BSTNode<T> node) {
 
 		return (Integer) node.getData();
+	}
+	
+	
+	public boolean isBST(BSTImpl<T> arvore) {
+		return isBST(arvore.getRoot());
+	}
+	
+	private boolean isBST(BSTNode<T> tree) {
+		if(tree.isLeaf()) {
+			return true;
+		}else {
+			boolean var = true;
+			if(tree.getLeft().getData().compareTo(tree.getData())> 0) {
+	          var = false;
+			}
+			if(tree.getRight().getData().compareTo(tree.getData()) < 0) {
+				var = false;
+			}
+			return var && isBST((BSTNode<T>) tree.getLeft()) && isBST((BSTNode<T>) tree.getRight());
+		}
 	}
 }

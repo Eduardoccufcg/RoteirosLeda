@@ -1,6 +1,7 @@
 package adt.bst;
 
 import java.util.Arrays;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 /**
@@ -13,7 +14,7 @@ public class DNode<Object> {
 		Stack<DNode<String>> pilha = new Stack<DNode<String>>();
 		DNode<String> p = null;
 		DNode<String> root = null;
-		String[] a = "(((3+6)*(7/3))*(1/2))".split("");
+		String[] a = "(((3+6)*(3/3))*((4/2)*(4+6))".split("");
 		System.out.print(Arrays.toString(a));
 		for (int i = 0; i < a.length; i++) {
 			if (a[i].equals("(")) {
@@ -40,27 +41,27 @@ public class DNode<Object> {
 				p = k.getRight();
 
 			} else if (a[i].equals(")")) {
-				pilha.pop();
+				try {
+					pilha.pop();
+				}catch(EmptyStackException  e) {
+					System.out.println("Expressao invalida");
+				}
+				
 			}
 		}
-		
+		System.out.print(avaliaExpressao(root));
 
 	}
 
 	public static double avaliaExpressao(DNode<String> node) {
-		if (!node.isEmpty()) {
 
-			if (node.isLeaf()) {
-				return Double.parseDouble(node.getData());
-			} else {
-				double k = avaliaExpressao(node.getLeft());
-				double j = avaliaExpressao(node.getRight());
-				return avalia(k, j, node.getData());
-
-			}
-
+		if (node.isLeaf()) {
+			return Double.parseDouble(node.getData());
 		} else {
-			return 0;
+			double k = avaliaExpressao(node.getLeft());
+			double j = avaliaExpressao(node.getRight());
+			return avalia(k, j, node.getData());
+
 		}
 
 	}
