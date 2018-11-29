@@ -1,5 +1,9 @@
 package adt.avltree;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
 import adt.bst.BSTImpl;
 import adt.bst.BSTNode;
 import adt.bt.Util;
@@ -13,6 +17,29 @@ import adt.bt.Util;
  * @param <T>
  */
 public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements AVLTree<T> {
+
+	public static void main(String[] args) {
+
+		AVLTreeImpl d = new AVLTreeImpl<>();
+	d.insert(11);
+		d.insert(12);
+		d.insert(13);
+		d.insert(14);
+		
+		d.insert(8);
+		d.insert(9);
+		d.insert(10);
+		d.insert(5);
+		d.insert(6);
+		d.insert(7);
+		d.insert(15);
+	d.insert(1);
+		d.insert(2);
+		d.insert(3);
+		d.insert(4);
+		System.out.println(Arrays.toString(d.preOrder()));
+
+	}
 
 	// AUXILIARY
 	protected int calculateBalance(BSTNode<T> node) {
@@ -144,4 +171,29 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 			}
 		}
 	}
+
+	public T[] levelOrder() {
+		T[] array = (T[]) new Comparable[this.size()];
+		if (this.isEmpty())
+			return array;
+		levelOrder(array, root, 0);
+		return array;
+	}
+
+	private void levelOrder(T[] array, BSTNode<T> node, int i) {
+		Deque<BSTNode<T>> fila = new ArrayDeque<>();
+		fila.add(node);
+		while (!fila.isEmpty()) {
+			BSTNode<T> atual = fila.removeFirst();
+			array[i++] = atual.getData();
+			if (!atual.getLeft().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getLeft());
+			}
+			if (!atual.getRight().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getRight());
+			}
+		}
+
+	}
+
 }

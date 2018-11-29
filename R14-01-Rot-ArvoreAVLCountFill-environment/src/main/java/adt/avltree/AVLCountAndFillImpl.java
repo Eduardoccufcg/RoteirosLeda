@@ -17,21 +17,7 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 	private int RRcounter;
 	private int RLcounter;
 
-	public static void main(String[] args) {
-		AVLCountAndFillImpl<Integer> a = new AVLCountAndFillImpl<Integer>();
-		a.insert(99);
-
-		a.insert(44);
-		a.insert(71);
-		a.insert(80);
-		a.insert(74);
-		a.insert(63);
-		a.insert(59);
-		System.out.println(a.RRcounter);
-		System.out.println(a.LLcounter);
-		System.out.println(a.RLcounter);
-		System.out.println(a.LRcounter);
-	}
+	
 
 	public AVLCountAndFillImpl() {
 
@@ -114,7 +100,6 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends AVLTreeImpl<T>
 			}
 			insert(arrayAux[middle]);
 		}
-
 	}
-
+	
 }

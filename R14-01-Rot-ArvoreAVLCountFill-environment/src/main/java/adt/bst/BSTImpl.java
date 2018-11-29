@@ -1,6 +1,8 @@
 package adt.bst;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
@@ -21,7 +23,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		tree.insert(11);
 		tree.insert(13);
 		tree.insert(15);
-		System.out.println(Arrays.toString(tree.preOrder()));
+		System.out.println(Arrays.toString(tree.levelOrder()));
 		System.out.println(Arrays.toString(tree.order()));
 		System.out.println(Arrays.toString(tree.postOrder()));
 
@@ -329,4 +331,29 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 		return result;
 	}
+
+	public T[] levelOrder() {
+		T[] array = (T[]) new Comparable[this.size()];
+		if (this.isEmpty())
+			return array;
+		levelOrder(array, root, 0);
+		return array;
+	}
+
+	private void levelOrder(T[] array, BSTNode<T> node, int i) {
+		Deque<BSTNode<T>> fila = new ArrayDeque<>();
+		fila.add(node);
+		while (!fila.isEmpty()) {
+			BSTNode<T> atual = fila.removeFirst();
+			array[i++] = atual.getData();
+			if (!atual.getLeft().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getLeft());
+			}
+			if (!atual.getRight().isEmpty()) {
+				fila.add((BSTNode<T>) atual.getRight());
+			}
+		}
+
+	}
+
 }
