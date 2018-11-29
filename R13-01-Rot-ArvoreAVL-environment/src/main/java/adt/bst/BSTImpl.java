@@ -11,7 +11,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 		tree.insert(2);
 
-		System.out.println(tree.ceil(3));
+		System.out.println(tree.floor(0));
 
 	}
 
@@ -19,8 +19,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public T floor(T key) {
 		BSTNode<T> x = floor(root, key);
-		if (x.isEmpty())
-			return null;
 		return x.getData();
 	}
 
@@ -58,8 +56,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public T ceil(T key) {
 		BSTNode<T> x = ceil(root, key);
-		if (x.isEmpty())
-			return null;
 		return x.getData();
 	}
 
