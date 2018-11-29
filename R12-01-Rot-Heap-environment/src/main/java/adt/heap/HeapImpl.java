@@ -21,9 +21,13 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public static void main(String[] args) {
 		// minHeap
 		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
+		heapAux.insert(1);
+		heapAux.insert(2);
+		heapAux.insert(3);
+		heapAux.insert(4);
+		heapAux.insert(5);
 
-		System.out.println(Arrays.toString(
-				heapAux.merge(new Integer[] { 1, 7, 78, 5, 6, 188, 8 }, new Integer[] { 0, 14, 21, -1, 17 })));
+		System.out.println(heapAux.elementsByLevel(2));
 
 	}
 
@@ -227,17 +231,18 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	// Breadth-first search (BFS) ou Encaminhamento em Largura é uma forma de
 	// percorrer uma árvore visitando os nós vizinhos de um determinado nível desta
 	// árvore.
-	public T[] elementsByLevel(int level) {
+	public List<T> elementsByLevel(int level) {
 		if (level > this.index || level < 0) {
 			throw new RuntimeException("Level inexistente");
 		}
 		// 2 ^ level - 1
 		int comecoLevel = (int) (Math.pow(2, level) - 1);
 		int levelFinal = comecoLevel * 2;
-		T[] elementosPorLevel = (T[]) new Comparable[comecoLevel + levelFinal + 1];
+		List<T> elementosPorLevel = new ArrayList<T>();
 
-		for (int i = comecoLevel; i <= levelFinal; i++) {
-			elementosPorLevel[i] = heap[i];
+		for (int i = comecoLevel; i <= levelFinal && heap[i] != null; i++) {
+
+			elementosPorLevel.add(heap[i]);
 		}
 
 		return elementosPorLevel;
