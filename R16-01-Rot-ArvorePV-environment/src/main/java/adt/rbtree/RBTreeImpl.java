@@ -1,11 +1,28 @@
 package adt.rbtree;
 
 import adt.bst.BSTImpl;
-
+import adt.bst.BSTNode;
 import adt.bt.Util;
 import adt.rbtree.RBNode.Colour;
 
 public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBTree<T> {
+
+	public static void main(String[] args) {
+		RBTreeImpl<Integer> myRB = new RBTreeImpl<Integer>();
+
+		myRB.insert(41);
+		myRB.insert(74);
+		myRB.insert(31);
+		myRB.insert(47);
+		myRB.insert(19);
+		myRB.insert(8);
+		myRB.insert(32);
+		myRB.insert(37);
+
+		System.out.println(myRB.sizeBlack());
+		System.out.println(myRB.sizeRed());
+
+	}
 
 	public RBTreeImpl() {
 		this.root = new RBNode<T>();
@@ -126,9 +143,6 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements R
 			node.getRight().setParent(node);
 
 			node.setColour(Colour.RED);
-			if (node.getParent() == null) {
-				this.root = node;
-			}
 			fixUpCase1(node);
 
 		} else {
@@ -221,4 +235,41 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements R
 			Util.leftRotation(grandfather);
 		}
 	}
+
+	public int sizeBlack() {
+		return sizeBlack(root);
+	}
+
+	private int sizeBlack(BSTNode<T> node) {
+		int result = 0;
+		// base case means doing nothing (return 0)
+		if (!node.isEmpty()) { // indusctive case
+			if (((RBNode<T>) node).getColour() == Colour.BLACK) {
+				result = 1 + sizeBlack((BSTNode<T>) node.getLeft()) + sizeBlack((BSTNode<T>) node.getRight());
+			} else {
+				result = 0 + sizeBlack((BSTNode<T>) node.getLeft()) + sizeBlack((BSTNode<T>) node.getRight());
+			}
+
+		}
+		return result;
+	}
+
+	public int sizeRed() {
+		return sizeRed(root);
+	}
+
+	private int sizeRed(BSTNode<T> node) {
+		int result = 0;
+		// base case means doing nothing (return 0)
+		if (!node.isEmpty()) { // indusctive case
+			if (((RBNode<T>) node).getColour() == Colour.RED) {
+				result = 1 + sizeRed((BSTNode<T>) node.getLeft()) + sizeRed((BSTNode<T>) node.getRight());
+			} else {
+				result = 0 + sizeRed((BSTNode<T>) node.getLeft()) + sizeRed((BSTNode<T>) node.getRight());
+			}
+
+		}
+		return result;
+	}
+
 }

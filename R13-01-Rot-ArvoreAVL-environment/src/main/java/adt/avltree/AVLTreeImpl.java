@@ -18,20 +18,12 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 
 	public static void main(String[] args) {
 		AVLTreeImpl<Integer> tree = new AVLTreeImpl<>();
-		tree.insert(8);
+		tree.insert(2);
 
-		tree.insert(12);
+		tree.insert(87);
 
-		tree.insert(10);
+		tree.insert(44);
 
-		tree.insert(5);
-		tree.insert(7);
-
-		tree.insert(11);
-
-		tree.insert(15);
-		System.out.println(Arrays.toString(tree.order()));
-		System.out.println(tree.estatisticadeOrdem(2));
 
 	}
 

@@ -21,14 +21,8 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 	public static void main(String[] args) {
 		// minHeap
 		HeapImpl<Integer> heapAux = new HeapImpl<Integer>((o1, o2) -> o2 - o1);
-		heapAux.insert(1);
-		heapAux.insert(2);
-		heapAux.insert(3);
-		heapAux.insert(4);
-		heapAux.insert(5);
 
-		System.out.println(heapAux.elementsByLevel(2));
-
+		heapAux.buildHeap( new Integer[] {4,-4,6,2,74,8,65});
 	}
 
 	protected T[] heap;

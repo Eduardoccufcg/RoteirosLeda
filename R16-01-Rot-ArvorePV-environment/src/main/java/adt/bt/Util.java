@@ -8,31 +8,34 @@ public class Util {
 	/**
 	 * A rotacao a esquerda em node deve subir e retornar seu filho a direita
 	 * 
-	 * @param node
+	 * @param root
 	 * @return
 	 */
-	public static <T extends Comparable<T>> BSTNode<T> leftRotation(BSTNode<T> node) {
-		BSTNode<T> rightNode = (BSTNode<T>) node.getRight();
-		rightNode.setParent(node.getParent());
+	public static <T extends Comparable<T>> BSTNode<T> leftRotation(BSTNode<T> root) {
+		// Pivot = Root.OS
+		BSTNode<T> pivot = (BSTNode<T>) root.getRight();
+		pivot.setParent(root.getParent());
 
-		if (node.getParent() != null) {
-			if (node.getParent().getLeft().equals(node)) {
-				node.getParent().setLeft(rightNode);
+		if (root.getParent() != null) {
+			// node filho a esquerda
+			if (root.getParent().getLeft().equals(root)) {
+				root.getParent().setLeft(pivot);
 			} else {
-				node.getParent().setRight(rightNode);
+				root.getParent().setRight(pivot);
 			}
 		}
 
-		node.setParent(rightNode);
-		node.setRight(rightNode.getLeft());
+		root.setParent(pivot);
+	    //Root.OS = Pivot.RS
+		root.setRight(pivot.getLeft());
 
-		if (rightNode.getLeft() != null) {
-			rightNode.getLeft().setParent(node);
+		if (pivot.getLeft() != null) {
+			pivot.getLeft().setParent(root);
 		}
+        // Pivot.RS = Root
+		pivot.setLeft(root);
 
-		rightNode.setLeft(node);
-
-		return rightNode;
+		return pivot;
 	}
 
 	/**

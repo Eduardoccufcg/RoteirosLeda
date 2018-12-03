@@ -2,6 +2,20 @@ package adt.bst;
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
+	public static void main(String[] args) {
+		BSTImpl<Integer> myRB = new BSTImpl<Integer>();
+
+		myRB.insert(41);
+		myRB.insert(38);
+		myRB.insert(31);
+		myRB.insert(12);
+		myRB.insert(19);
+		myRB.insert(8);
+
+		System.out.println(myRB.size());
+
+	}
+
 	protected BSTNode<T> root;
 
 	public BSTImpl() {

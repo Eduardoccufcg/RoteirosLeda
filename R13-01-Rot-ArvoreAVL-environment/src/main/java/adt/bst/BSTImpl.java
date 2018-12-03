@@ -6,12 +6,13 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public static void main(String[] args) {
 		BSTImpl<Integer> tree = new BSTImpl<>();
-		tree.insert(8);
+		tree.insert(6);
 		tree.insert(4);
-
-		tree.insert(2);
-
-		System.out.println(tree.floor(0));
+		tree.insert(7);
+		tree.insert(3);
+		tree.insert(5);
+		tree.insert(8);
+		tree.remove(7);
 
 	}
 
@@ -268,23 +269,31 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			// 1 filho
 			else if (node.getLeft().isEmpty() || node.getRight().isEmpty()) {
 				if (node.getParent() != null) {
+					// o no e filho a direita
 					if (!node.getParent().getLeft().equals(node)) {
+						// o no tem filho a esquerda
 						if (!node.getLeft().isEmpty()) {
 							node.getParent().setRight(node.getLeft());
 							node.getLeft().setParent(node.getParent());
+							// o no tem filho a direita
 						} else {
 							node.getParent().setRight(node.getRight());
 							node.getRight().setParent(node.getParent());
 						}
+						// o no e filho a esquerda
 					} else {
+						// o no tem filho a esquerda
 						if (!node.getLeft().isEmpty()) {
 							node.getParent().setLeft(node.getLeft());
 							node.getLeft().setParent(node.getParent());
+
+							// o no tem filho a direita
 						} else {
 							node.getParent().setLeft(node.getRight());
 							node.getRight().setParent(node.getParent());
 						}
 					}
+				// Remover a raiz.
 				} else {
 					if (node.getLeft().isEmpty()) {
 						root = (BSTNode<T>) node.getRight();
