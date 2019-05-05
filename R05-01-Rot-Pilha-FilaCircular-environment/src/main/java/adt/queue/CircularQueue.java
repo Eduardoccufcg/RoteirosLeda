@@ -14,6 +14,16 @@ public class CircularQueue<T> implements Queue<T> {
 		elements = 0;
 	}
 
+	public static void main(String args[]) {
+		String a = "(()()()()())";
+		String b = "(()()()()()";
+		String c = "(((())";
+		CircularQueue<Character> pilha = new CircularQueue<Character>(a.length());
+		System.out.println(pilha.parenthesis(a));
+		System.out.println(pilha.parenthesis(b));
+		System.out.println(pilha.parenthesis(c));
+	}
+
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
 		if (!isFull()) {
@@ -59,6 +69,36 @@ public class CircularQueue<T> implements Queue<T> {
 	@Override
 	public boolean isFull() {
 		return (elements == array.length);
+	}
+
+	private boolean parenthesis(String a) {
+		CircularQueue<Character> pilha = new CircularQueue<Character>(a.length());
+		for (int i = 0; i < a.length(); i++) {
+			if(a.charAt(i) == '('){
+				try {
+					pilha.enqueue(a.charAt(i));
+				// nao é necessário
+				} catch (QueueOverflowException e) {
+				
+				}
+			}else if(a.charAt(i) == ')') {
+				
+					try {
+						pilha.dequeue();
+					} catch (QueueUnderflowException e) {
+						return false;
+					}
+				
+			}
+
+		}
+		if(!pilha.isEmpty()) {
+			return false;
+			
+		}
+
+		return true;
+
 	}
 
 }
