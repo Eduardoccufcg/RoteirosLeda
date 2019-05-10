@@ -11,23 +11,43 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	}
 
 	public static void main(String[] args) {
-		SingleLinkedListImpl<Integer> lista1 = new SingleLinkedListImpl<Integer>();
-		SingleLinkedListImpl<Integer> lista2 = new SingleLinkedListImpl<Integer>();
-		lista1.insertOrdenado(2);
-		lista1.insertOrdenado(0);
-		lista1.insertOrdenado(23);
-		lista1.insertOrdenado(75);
-		System.out.println(Arrays.toString(lista1.toArray()));
-		lista2.insertOrdenado(-8);
-		lista2.insertOrdenado(76);
-		lista2.insertOrdenado(1);
-		lista2.insertOrdenado(3);
-		merge(lista1, lista2);
-
-		System.out.println(Arrays.toString(lista1.toArray()));
+		SingleLinkedListImpl<String> lista = new SingleLinkedListImpl<String>();
+		
+		lista.doIt("A");
+		System.out.println(Arrays.toString(lista.toArray()));
+		lista.doIt("B");
+		System.out.println(Arrays.toString(lista.toArray()));
+		lista.doIt("C");
+		System.out.println(Arrays.toString(lista.toArray()));
+		lista.doIt("D");
+		System.out.println(Arrays.toString(lista.toArray()));
+		lista.doIt("E");
+		System.out.println(Arrays.toString(lista.toArray()));
 
 	}
-
+	
+	/*
+	 * Insere um elemento na cabeça da lista, mas antes ela é invertida
+	 * 2ª prova de LEDA 2018.1
+	 */
+	
+	public void doIt(T elem) {
+		if(!isEmpty()){
+			SingleLinkedListNode<T> node;
+			SingleLinkedListNode<T> aux = this.head;
+			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<T>();
+			while(!aux.isNIL()) {
+				node = aux.getNext();
+				aux.setNext(newHead);
+				newHead = aux;
+				aux = node;
+			}
+			this.head = newHead;
+		}
+		SingleLinkedListNode<T> newH = new SingleLinkedListNode<T>(elem,this.head);	
+		this.head = newH;
+	}
+	
 	private static void merge(SingleLinkedListImpl<Integer> l1, SingleLinkedListImpl<Integer> l2) {
 		SingleLinkedListNode<Integer> aux = l2.getHead();
 		while (!aux.isNIL()) {
@@ -75,7 +95,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 				node = aux.getNext();
 				// seto o prox do aux atual.(Sempre sera o anterior a ele)
 				aux.setNext(newHead);
-				// o novo head e o aux atual.
+				// o novo head é o aux atual.
 				newHead = aux;
 				// o aux recebe a referencia do prox guardado em node
 				aux = node;
