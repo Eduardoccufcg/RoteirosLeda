@@ -28,7 +28,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 	
 	/*
 	 * Insere um elemento na cabeça da lista, mas antes ela é invertida
-	 * 2ª prova de LEDA 2018.1
+	 * 2ª prova de LEDA 2019.1
 	 */
 	
 	public void doIt(T elem) {
